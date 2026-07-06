@@ -51,7 +51,7 @@ export default function CostCalculator({ onContact }: CostCalculatorProps) {
   const total = baseCost + addonCost;
 
   const formatPrice = (num: number) =>
-    Math.round(num).toLocaleString('uk-UA');
+    Math.round(num).toLocaleString('uk-UA', { useGrouping: true });
 
   return (
     <div className="relative">
@@ -128,7 +128,7 @@ export default function CostCalculator({ onContact }: CostCalculatorProps) {
                     }`}
                   style={repairType === rt.value ? { background: GOLD_GRAD } : {}}
                 >
-                  {rt.label} · {rt.price.toLocaleString()} ₴/м²
+                  {rt.label} · {rt.price.toLocaleString('uk-UA', { useGrouping: true })} ₴/м²
                 </button>
               ))}
             </div>
@@ -157,7 +157,7 @@ export default function CostCalculator({ onContact }: CostCalculatorProps) {
                     </div>
                     <span>{addon.label}</span>
                   </div>
-                  <span className="text-[#C9A84C]">+{addon.price.toLocaleString()} ₴/м²</span>
+                  <span className="text-[#C9A84C]">+{addon.price.toLocaleString('uk-UA', { useGrouping: true })} ₴/м²</span>
                 </button>
               ))}
             </div>
@@ -176,14 +176,14 @@ export default function CostCalculator({ onContact }: CostCalculatorProps) {
             {/* Price breakdown */}
             <div className="space-y-4 mb-8">
               <div className="flex justify-between items-center pb-3 border-b border-white/[0.06]">
-                <span className="text-white/50 text-xs font-sans">Ремонт ({area} м² × {repair.price.toLocaleString()} ₴)</span>
+                <span className="text-white/50 text-xs font-sans">Ремонт ({area} м² × {repair.price.toLocaleString('uk-UA', { useGrouping: true })} ₴)</span>
                 <span className="text-white font-heading font-black text-sm">{formatPrice(baseCost)} ₴</span>
               </div>
               {addons.map(a => {
                 const addon = ADDONS.find(ad => ad.value === a)!;
                 return (
                   <div key={a} className="flex justify-between items-center pb-3 border-b border-white/[0.06]">
-                    <span className="text-white/50 text-xs font-sans">{addon.label} ({area} м² × {addon.price.toLocaleString()} ₴)</span>
+                    <span className="text-white/50 text-xs font-sans">{addon.label} ({area} м² × {addon.price.toLocaleString('uk-UA', { useGrouping: true })} ₴)</span>
                     <span className="text-white/70 font-heading font-black text-sm">{formatPrice(addon.price * area)} ₴</span>
                   </div>
                 );

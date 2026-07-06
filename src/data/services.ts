@@ -131,7 +131,7 @@ export const HERO_STATS = [
 
 export const NAV_ITEMS = [
   { label: 'Послуги', id: 'послуги' },
-  { label: 'Портфоліо', id: 'портфоліо' },
+  { label: 'Проєкти', id: 'проєкти' },
   { label: 'Прайс', id: 'прайс' },
   { label: 'FAQ', id: 'faq' },
   { label: 'Контакти', id: 'контакти' },
@@ -141,16 +141,16 @@ export const FOOTER_LINKS = {
   navigation: [
     { label: 'Про нас', id: 'про-нас' },
     { label: 'Послуги', id: 'послуги' },
-    { label: 'Портфоліо', id: 'портфоліо' },
-    { label: 'Переваги', id: 'переваги' },
+    { label: 'Проєкти', id: 'проєкти' },
     { label: 'Прайс', id: 'прайс' },
+    { label: 'FAQ', id: 'faq' },
   ],
   services: [
-    'Дизайн інтер\'єру',
-    'Ремонт під ключ',
-    'Будівництво котеджів',
-    'Виготовлення меблів',
-    'Авторський нагляд',
+    { label: 'Ремонт під ключ', href: '/uslugi/remont' },
+    { label: 'Дизайн інтер\'єру', href: '/uslugi/dizajn' },
+    { label: 'Будівництво котеджів', href: '#' },
+    { label: 'Виготовлення меблів', href: '/uslugi/mebli' },
+    { label: 'Авторський нагляд', href: '#' },
   ],
 } as const;
 

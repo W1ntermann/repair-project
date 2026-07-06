@@ -64,8 +64,9 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
               style={{ background: THEME.GOLD_GRAD }} />
 
             <button onClick={onClose}
-              className="absolute top-5 right-5 text-white/40 hover:text-white transition-colors">
-              <X className="w-5 h-5" />
+              className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all duration-300 rounded-full group"
+              aria-label="Закрити">
+              <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
             </button>
 
             {sent ? (

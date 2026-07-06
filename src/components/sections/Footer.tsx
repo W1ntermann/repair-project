@@ -79,15 +79,25 @@ export default function Footer({ onOpenModal }: { onOpenModal: () => void }) {
           <div>
             <h4 className="text-white font-heading font-black text-sm uppercase tracking-widest mb-6">ПОСЛУГИ</h4>
             <ul className="space-y-4">
-              {FOOTER_LINKS.services.map((s) => (
-                <li key={s}>
-                  <button
-                    onClick={onOpenModal}
-                    className="text-[#666666] hover:text-[#C9A84C] transition-colors text-sm uppercase tracking-wider flex items-center gap-3 group text-left"
-                  >
-                    <span className="w-0 h-[1px] bg-[#C9A84C] group-hover:w-5 transition-all duration-300" />
-                    {s}
-                  </button>
+              {FOOTER_LINKS.services.map((service) => (
+                <li key={service.label}>
+                  {service.href === '#' ? (
+                    <button
+                      onClick={onOpenModal}
+                      className="text-[#666666] hover:text-[#C9A84C] transition-colors text-sm uppercase tracking-wider flex items-center gap-3 group text-left"
+                    >
+                      <span className="w-0 h-[1px] bg-[#C9A84C] group-hover:w-5 transition-all duration-300" />
+                      {service.label}
+                    </button>
+                  ) : (
+                    <a
+                      href={service.href}
+                      className="text-[#666666] hover:text-[#C9A84C] transition-colors text-sm uppercase tracking-wider flex items-center gap-3 group"
+                    >
+                      <span className="w-0 h-[1px] bg-[#C9A84C] group-hover:w-5 transition-all duration-300" />
+                      {service.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

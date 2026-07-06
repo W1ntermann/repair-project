@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import { THEME } from '@/lib/constants';
@@ -76,35 +76,37 @@ export default function Header({ onOpenModal, onScrollTo }: HeaderProps) {
       </div>
 
       {/* Mobile Menu */}
-      {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: '100%' }} transition={{ duration: 0.4, ease: THEME.EASE }}
-          className="fixed inset-0 z-40 bg-[#0e0e0e]/95 backdrop-blur-2xl flex flex-col p-8 pt-32 xl:hidden"
-        >
-          <nav className="flex flex-col gap-6 mb-10">
-            {NAV_ITEMS.map((item, i) => (
-              <motion.button
-                key={i}
-                initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.06 * i }}
-                className="text-left text-white text-3xl font-heading font-black uppercase tracking-widest hover:text-[#C9A84C] transition-colors"
-                onClick={() => { onScrollTo(item.id); setMobileOpen(false); }}
-              >{item.label}</motion.button>
-            ))}
-          </nav>
-          <div className="mt-auto flex flex-col gap-5 border-t border-white/10 pt-8">
-            <a href="tel:+380980050505" className="flex items-center gap-3 text-[#f0f0f0] font-heading text-xl font-bold">
-              <Phone className="w-5 h-5 text-[#C9A84C]" /> +38 (098) 005-05-05
-            </a>
-            <button onClick={onOpenModal}
-              className="py-5 uppercase font-heading font-black tracking-[0.2em] text-[13px] text-[#0e0e0e]"
-              style={{ background: THEME.GOLD_GRAD }}>
-              ЗВОРОТНІЙ ДЗВІНОК
-            </button>
-          </div>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }} transition={{ duration: 0.4, ease: THEME.EASE }}
+            className="fixed inset-0 z-40 bg-[#0e0e0e]/95 backdrop-blur-2xl flex flex-col p-8 pt-32 xl:hidden"
+          >
+            <nav className="flex flex-col gap-6 mb-10">
+              {NAV_ITEMS.map((item, i) => (
+                <motion.button
+                  key={i}
+                  initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.06 * i }}
+                  className="text-left text-white text-3xl font-heading font-black uppercase tracking-widest hover:text-[#C9A84C] transition-colors"
+                  onClick={() => { onScrollTo(item.id); setMobileOpen(false); }}
+                >{item.label}</motion.button>
+              ))}
+            </nav>
+            <div className="mt-auto flex flex-col gap-5 border-t border-white/10 pt-8">
+              <a href="tel:+380980050505" className="flex items-center gap-3 text-[#f0f0f0] font-heading text-xl font-bold">
+                <Phone className="w-5 h-5 text-[#C9A84C]" /> +38 (098) 005-05-05
+              </a>
+              <button onClick={onOpenModal}
+                className="py-5 uppercase font-heading font-black tracking-[0.2em] text-[13px] text-[#0e0e0e]"
+                style={{ background: THEME.GOLD_GRAD }}>
+                ЗВОРОТНІЙ ДЗВІНОК
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
