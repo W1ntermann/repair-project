@@ -20,6 +20,7 @@ import PortfolioGrid from '@/components/PortfolioGrid';
 import SectionNav from '@/components/SectionNav';
 import ScrollToTop from '@/components/ScrollToTop';
 import FloatingSocial from '@/components/FloatingSocial';
+import CostCalculator from '@/components/CostCalculator';
 
 /* ─── Constants ──────────────────────────────────────── */
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -940,13 +941,10 @@ export default function LandingPage() {
   const openModal = () => { setModal(true); setMobileOpen(false); };
 
   const navItems = [
-    { label: 'Ремонт',      id: 'послуги' },
-    { label: 'Дизайн',      id: 'послуги' },
-    { label: 'Будівництво', id: 'послуги' },
     { label: 'Послуги',     id: 'послуги' },
-    { label: 'Меблі',       id: 'послуги' },
-    { label: 'Прайс',       id: 'прайс' },
     { label: 'Портфоліо',   id: 'портфоліо' },
+    { label: 'Прайс',       id: 'прайс' },
+    { label: 'Контакти',    id: 'контакти' },
   ];
 
   return (
@@ -982,7 +980,7 @@ export default function LandingPage() {
           : { backgroundColor: 'rgba(14,14,14,0)', backdropFilter: 'blur(0px)', borderBottomColor: 'rgba(255,255,255,0.06)' }
         }
         transition={{ duration: 0.4 }}
-        className="fixed w-full top-0 left-0 z-50 border-b h-24 flex items-center"
+        className="fixed w-full top-0 left-0 z-50 border-b h-20 flex items-center"
         style={{ WebkitBackdropFilter: scrolled ? 'blur(24px)' : 'blur(0px)' } as React.CSSProperties}
       >
         <div className="container mx-auto px-6 flex justify-between items-center">
@@ -1019,10 +1017,6 @@ export default function LandingPage() {
                 style={{ background: GOLD_GRAD }} />
               <span className="relative z-10 group-hover:text-[#0e0e0e] transition-colors duration-300">ЗВОРОТНІЙ ДЗВІНОК</span>
             </motion.button>
-            <div className="flex items-center gap-2 text-[11px] font-heading font-bold tracking-widest text-white/30">
-              <button className="text-white">UA</button><span>/</span>
-              <button className="hover:text-white transition-colors">RU</button>
-            </div>
           </div>
 
           <button className="xl:hidden text-white hover:text-[#C9A84C] transition-colors" onClick={() => setMobileOpen(v => !v)}>
@@ -1339,6 +1333,23 @@ export default function LandingPage() {
                 delay={0.3} onContact={openModal}
               />
             </div>
+          </div>
+        </section>
+
+        {/* ── COST CALCULATOR ─────────────────────────── */}
+        <section id="калькулятор" className="relative py-28 overflow-hidden">
+          <div className="container mx-auto px-6 relative z-10">
+            <Reveal className="mb-16 text-center">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="w-12 h-[2px]" style={{ background: GOLD_GRAD }} />
+                <span className="text-[#C9A84C] font-heading uppercase tracking-[0.3em] text-xs font-bold">КАЛЬКУЛЯТОР</span>
+                <div className="w-12 h-[2px]" style={{ background: GOLD_GRAD }} />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">
+                ОРІЄНТОВНА <span className="text-[#C9A84C]">ВАРТІСТЬ</span>
+              </h2>
+            </Reveal>
+            <CostCalculator onContact={openModal} />
           </div>
         </section>
 
