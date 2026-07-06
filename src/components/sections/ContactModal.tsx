@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Check } from 'lucide-react';
+import { X, Send, Check, Phone, Mail, MapPin } from 'lucide-react';
 import { THEME } from '@/lib/constants';
 
 interface ContactModalProps {
@@ -28,6 +28,15 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
       setMsg('');
       setTime('');
     }, 2400);
+  };
+
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length === 0) return '';
+    if (numbers.length <= 3) return `+380 (${numbers}`;
+    if (numbers.length <= 6) return `+380 (${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
+    if (numbers.length <= 8) return `+380 (${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6)}`;
+    return `+380 (${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6, 8)}-${numbers.slice(8, 10)}`;
   };
 
   return (
@@ -88,12 +97,16 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                     placeholder="Ваше ім'я"
                     className="bg-white/[0.04] border border-white/[0.08] px-5 py-4 text-white font-sans text-sm placeholder:text-white/30 focus:outline-none focus:border-[#C9A84C] transition-colors w-full"
                   />
-                  <input
-                    required value={phone} onChange={e => setPhone(e.target.value)}
-                    placeholder="Номер телефону"
-                    type="tel"
-                    className="bg-white/[0.04] border border-white/[0.08] px-5 py-4 text-white font-sans text-sm placeholder:text-white/30 focus:outline-none focus:border-[#C9A84C] transition-colors w-full"
-                  />
+                  <div className="relative">
+                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                    <input
+                      required value={phone} onChange={e => setPhone(formatPhone(e.target.value))}
+                      placeholder="+380 (XX) XXX-XX-XX"
+                      type="tel"
+                      maxLength={19}
+                      className="bg-white/[0.04] border border-white/[0.08] pl-12 pr-5 py-4 text-white font-sans text-sm placeholder:text-white/30 focus:outline-none focus:border-[#C9A84C] transition-colors w-full"
+                    />
+                  </div>
                   <textarea
                     value={msg} onChange={e => setMsg(e.target.value)}
                     placeholder="Розкажіть про ваш об'єкт (площа, тип, побажання)"
@@ -108,10 +121,13 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                   <motion.button
                     type="submit"
                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                    className="mt-2 py-5 uppercase font-heading font-black tracking-[0.2em] text-[13px] text-[#0e0e0e] flex items-center justify-center gap-3"
+                    className="mt-2 py-5 uppercase font-heading font-black tracking-[0.2em] text-[13px] text-[#0e0e0e] flex items-center justify-center gap-3 relative overflow-hidden group"
                     style={{ background: THEME.GOLD_GRAD }}
                   >
-                    НАДІСЛАТИ ЗАЯВКУ <Send className="w-4 h-4" />
+                    <span className="relative z-10 flex items-center gap-3">
+                      НАДІСЛАТИ ЗАЯВКУ <Send className="w-4 h-4" />
+                    </span>
+                    <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
                   </motion.button>
                   <p className="text-white/20 font-sans text-xs text-center">
                     Надсилаючи заявку, ви погоджуєтесь з <a href="#" className="underline hover:text-white/50 transition-colors">політикою конфіденційності</a>
@@ -119,6 +135,39 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                 </form>
               </>
             )}
+
+            {/* Contact info */}
+            <div className="mt-8 pt-8 border-t border-white/[0.08]">
+              <div className="grid grid-cols-1 gap-4">
+                <a href="tel:+380980050505" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors group">
+                  <div className="w-10 h-10 border border-white/10 flex items-center justify-center group-hover:border-[#C9A84C]/50 transition-colors">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-white/30 uppercase tracking-wider mb-1">Телефон</div>
+                    <div className="text-sm font-sans">+380 (98) 005-05-05</div>
+                  </div>
+                </a>
+                <a href="mailto:info@pro-repair.ua" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors group">
+                  <div className="w-10 h-10 border border-white/10 flex items-center justify-center group-hover:border-[#C9A84C]/50 transition-colors">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-white/30 uppercase tracking-wider mb-1">Email</div>
+                    <div className="text-sm font-sans">info@pro-repair.ua</div>
+                  </div>
+                </a>
+                <div className="flex items-center gap-3 text-white/50">
+                  <div className="w-10 h-10 border border-white/10 flex items-center justify-center">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-white/30 uppercase tracking-wider mb-1">Адреса</div>
+                    <div className="text-sm font-sans">м. Одеса, вул. Архітектурна, 1</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       )}

@@ -12,6 +12,7 @@ import CalculatorSection from '@/components/sections/Calculator';
 import Testimonials from '@/components/sections/Testimonials';
 import TimelineSection from '@/components/sections/Timeline';
 import CTASection from '@/components/sections/CTA';
+import FAQSection from '@/components/sections/FAQ';
 import Footer from '@/components/sections/Footer';
 import ContactModal from '@/components/sections/ContactModal';
 import TrustBar from '@/components/TrustBar';
@@ -63,6 +64,7 @@ export default function LandingPage() {
         <TimelineSection />
         <Pricing onContact={() => setModal(true)} />
         <CalculatorSection onContact={() => setModal(true)} />
+        <FAQSection onContact={() => setModal(true)} />
         <CTASection onOpenModal={() => setModal(true)} />
       </main>
 

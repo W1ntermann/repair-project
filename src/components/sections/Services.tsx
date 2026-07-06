@@ -5,10 +5,19 @@ import { motion } from 'framer-motion';
 import { THEME, ANIMATION } from '@/lib/constants';
 import { SERVICES } from '@/data/services';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
+import { Wrench, Palette, Building2, Sofa } from 'lucide-react';
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  Wrench,
+  Palette,
+  Building2,
+  Sofa,
+};
 
 /* ─── Service Card ─────────────────────────────────────── */
-function ServiceCard({ num, title, desc, delay }: { num: string; title: string; desc: string; delay: number }) {
+function ServiceCard({ num, title, desc, icon, delay }: { num: string; title: string; desc: string; icon: string; delay: number }) {
   const { ref, inView } = useScrollAnimation();
+  const IconComponent = ICON_MAP[icon] || Wrench;
 
   return (
     <motion.div
@@ -16,17 +25,28 @@ function ServiceCard({ num, title, desc, delay }: { num: string; title: string; 
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay }}
-      className="p-10 lg:p-12 group cursor-pointer hover:bg-white/[0.03] transition-colors duration-500 relative overflow-hidden flex flex-col justify-between h-full"
+      className="p-10 lg:p-12 group cursor-pointer hover:bg-white/[0.03] transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-full border border-transparent hover:border-white/[0.08]"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/0 group-hover:from-[#C9A84C]/5 to-transparent transition-all duration-700" />
       <div>
-        <span className="text-[#C9A84C] opacity-15 font-heading font-black text-6xl block mb-6 group-hover:opacity-60 transition-opacity duration-500 transform group-hover:-translate-y-1">
-          {num}
-        </span>
-        <h3 className="text-white font-heading text-xl font-black uppercase tracking-[0.2em] mb-4">{title}</h3>
+        <div className="flex items-start justify-between mb-6">
+          <span className="text-[#C9A84C] opacity-15 font-heading font-black text-6xl block group-hover:opacity-60 transition-opacity duration-500 transform group-hover:-translate-y-1">
+            {num}
+          </span>
+          <div className="relative">
+            <div className="absolute inset-0 bg-[#C9A84C]/20 blur-lg rounded-full" />
+            <div className="relative w-12 h-12 flex items-center justify-center">
+              <IconComponent className="w-6 h-6 text-[#C9A84C]" strokeWidth={1.5} />
+            </div>
+          </div>
+        </div>
+        <h3 className="text-white font-heading text-xl font-black uppercase tracking-[0.2em] mb-4 group-hover:text-[#C9A84C] transition-colors">{title}</h3>
         <p className="text-[#666666] text-sm font-sans leading-relaxed group-hover:text-white/60 transition-colors">{desc}</p>
       </div>
-      <div className="mt-8 w-0 h-[2px] group-hover:w-16 transition-all duration-500" style={{ background: THEME.GOLD_GRAD }} />
+      <div className="mt-8 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="h-[2px] flex-1" style={{ background: THEME.GOLD_GRAD }} />
+        <span className="text-[#C9A84C] text-xs font-sans uppercase tracking-wider">Детальніше</span>
+      </div>
     </motion.div>
   );
 }
@@ -44,8 +64,8 @@ export default function Services() {
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 lg:divide-x divide-white/[0.06]">
+      <div className="relative z-10 container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {SERVICES.map((service, i) => (
             <ServiceCard key={service.num} {...service} delay={i * ANIMATION.STAGGER} />
           ))}

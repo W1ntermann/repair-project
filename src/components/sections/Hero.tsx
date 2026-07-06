@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
-  ArrowDown, Play, Phone, ArrowUpRight,
+  ArrowDown, Play, Phone, ArrowUpRight, Sparkles, Shield, Clock,
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import { THEME, ANIMATION } from '@/lib/constants';
@@ -104,10 +104,33 @@ export default function Hero({ onOpenModal, onScrollTo }: HeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-white/60 max-w-xl text-lg leading-relaxed border-l-2 border-[#C9A84C] pl-6 mb-12"
+            className="text-white/60 max-w-xl text-lg leading-relaxed border-l-2 border-[#C9A84C] pl-6 mb-8"
           >
             Преміальний ремонт під ключ з 17-річним досвідом. Кожен проєкт — витвір мистецтва.
           </motion.p>
+
+          {/* Trust badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="flex flex-wrap items-center gap-6 mb-10"
+          >
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#C9A84C]" />
+              <span className="text-white/50 text-xs font-sans uppercase tracking-wider">Преміум якість</span>
+            </div>
+            <div className="w-[1px] h-4 bg-white/10" />
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-[#C9A84C]" />
+              <span className="text-white/50 text-xs font-sans uppercase tracking-wider">Гарантія 5 років</span>
+            </div>
+            <div className="w-[1px] h-4 bg-white/10" />
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#C9A84C]" />
+              <span className="text-white/50 text-xs font-sans uppercase tracking-wider">Точні терміни</span>
+            </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -154,8 +177,25 @@ export default function Hero({ onOpenModal, onScrollTo }: HeroProps) {
         className="absolute right-10 bottom-12 z-20 hidden lg:flex flex-col gap-4"
       >
         {HERO_STATS.map((stat, i) => (
-          <HeroStatCard key={stat.label} {...stat} />
+          <HeroStatCard key={stat.label} {...stat} delay={i * 0.1} />
         ))}
+      </motion.div>
+
+      {/* Floating badge */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.5, duration: 0.6 }}
+        className="absolute top-32 right-10 z-20 hidden xl:block"
+      >
+        <div className="relative">
+          <div className="absolute inset-0 bg-[#C9A84C]/20 blur-xl rounded-full" />
+          <div className="relative backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] px-6 py-3 flex items-center gap-3"
+            style={{ boxShadow: '0 0 40px rgba(201,168,76,0.2)' }}>
+            <div className="w-2 h-2 rounded-full bg-[#C9A84C] animate-pulse" />
+            <span className="text-white/80 text-xs font-sans uppercase tracking-wider">Відкрито для проєктів 2025</span>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
