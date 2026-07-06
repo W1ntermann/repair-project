@@ -6,13 +6,21 @@ import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { THEME, ANIMATION } from '@/lib/constants';
 import { PROJECTS } from '@/data/projects';
 import { ArrowRight, Calendar, MapPin, Ruler } from 'lucide-react';
+import Header from '@/components/sections/Header';
+import Footer from '@/components/sections/Footer';
 import Link from 'next/link';
 
 export default function ProjectsPage() {
   const { ref: heroRef, inView: heroInView } = useScrollAnimation();
 
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#f0f0f0]">
+      <Header onOpenModal={() => {}} onScrollTo={scrollTo} />
+
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center"
@@ -161,6 +169,8 @@ export default function ProjectsPage() {
           </motion.div>
         </div>
       </section>
+
+      <Footer onOpenModal={() => {}} />
     </div>
   );
 }

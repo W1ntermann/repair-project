@@ -5,11 +5,17 @@ import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { THEME, ANIMATION } from '@/lib/constants';
 import { Wrench, CheckCircle2, Clock, Shield, Phone } from 'lucide-react';
+import Header from '@/components/sections/Header';
+import Footer from '@/components/sections/Footer';
 import ContactModal from '@/components/sections/ContactModal';
 
 export default function RemontPage() {
   const { ref: heroRef, inView: heroInView } = useScrollAnimation();
   const [modalOpen, setModalOpen] = React.useState(false);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const features = [
     'Демонтажні роботи',
@@ -32,6 +38,7 @@ export default function RemontPage() {
 
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#f0f0f0]">
+      <Header onOpenModal={() => setModalOpen(true)} onScrollTo={scrollTo} />
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       {/* Hero Section */}
@@ -226,6 +233,8 @@ export default function RemontPage() {
           </motion.div>
         </div>
       </section>
+
+      <Footer onOpenModal={() => setModalOpen(true)} />
     </div>
   );
 }

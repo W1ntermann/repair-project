@@ -4,12 +4,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { THEME, ANIMATION } from '@/lib/constants';
-import { Sofa, CheckCircle2, Clock, Award, Phone } from 'lucide-react';
+import { Sofa, CheckCircle2, Clock, Shield, Phone, Award } from 'lucide-react';
+import Header from '@/components/sections/Header';
+import Footer from '@/components/sections/Footer';
 import ContactModal from '@/components/sections/ContactModal';
 
 export default function MebliPage() {
   const { ref: heroRef, inView: heroInView } = useScrollAnimation();
   const [modalOpen, setModalOpen] = React.useState(false);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const features = [
     'Корпусні меблі на замовлення',
@@ -39,6 +45,7 @@ export default function MebliPage() {
 
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#f0f0f0]">
+      <Header onOpenModal={() => setModalOpen(true)} onScrollTo={scrollTo} />
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       {/* Hero Section */}
@@ -266,6 +273,8 @@ export default function MebliPage() {
           </motion.div>
         </div>
       </section>
+
+      <Footer onOpenModal={() => setModalOpen(true)} />
     </div>
   );
 }

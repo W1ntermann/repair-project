@@ -7,6 +7,8 @@ import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { THEME, ANIMATION } from '@/lib/constants';
 import { PROJECTS } from '@/data/projects';
 import { ArrowLeft, Calendar, MapPin, Ruler, Phone, ArrowRight } from 'lucide-react';
+import Header from '@/components/sections/Header';
+import Footer from '@/components/sections/Footer';
 import ContactModal from '@/components/sections/ContactModal';
 import Link from 'next/link';
 
@@ -15,6 +17,10 @@ export default function ProjectDetailPage() {
   const { ref: heroRef, inView: heroInView } = useScrollAnimation();
   const [modalOpen, setModalOpen] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const project = PROJECTS.find(p => p.id === Number(params.id));
 
@@ -37,6 +43,7 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#f0f0f0]">
+      <Header onOpenModal={() => setModalOpen(true)} onScrollTo={scrollTo} />
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       {/* Hero Section */}
@@ -321,6 +328,8 @@ export default function ProjectDetailPage() {
           />
         </div>
       )}
+
+      <Footer onOpenModal={() => setModalOpen(true)} />
     </div>
   );
 }
