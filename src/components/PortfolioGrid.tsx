@@ -17,6 +17,7 @@ interface Project {
   year: string;
   cover: string;
   gallery: string[];
+  price?: string;
 }
 
 interface PortfolioGridProps {

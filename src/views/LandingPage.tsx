@@ -18,6 +18,8 @@ import TestimonialSlider from '@/components/TestimonialSlider';
 import Timeline from '@/components/Timeline';
 import PortfolioGrid from '@/components/PortfolioGrid';
 import SectionNav from '@/components/SectionNav';
+import ScrollToTop from '@/components/ScrollToTop';
+import FloatingSocial from '@/components/FloatingSocial';
 
 /* ─── Constants ──────────────────────────────────────── */
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -111,12 +113,13 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [msg, setMsg] = useState('');
+  const [time, setTime] = useState('');
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSent(true);
-    setTimeout(() => { setSent(false); onClose(); setName(''); setPhone(''); setMsg(''); }, 2400);
+    setTimeout(() => { setSent(false); onClose(); setName(''); setPhone(''); setMsg(''); setTime(''); }, 2400);
   };
 
   return (
@@ -183,8 +186,13 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
                   <textarea
                     value={msg} onChange={e => setMsg(e.target.value)}
                     placeholder="Розкажіть про ваш об'єкт (площа, тип, побажання)"
-                    rows={3}
+                    rows={2}
                     className="bg-white/[0.04] border border-white/[0.08] px-5 py-4 text-white font-sans text-sm placeholder:text-white/30 focus:outline-none focus:border-[#C9A84C] transition-colors resize-none w-full"
+                  />
+                  <input
+                    value={time} onChange={e => setTime(e.target.value)}
+                    placeholder="Зручний час для дзвінка"
+                    className="bg-white/[0.04] border border-white/[0.08] px-5 py-4 text-white font-sans text-sm placeholder:text-white/30 focus:outline-none focus:border-[#C9A84C] transition-colors w-full"
                   />
                   <motion.button
                     type="submit"
@@ -213,12 +221,14 @@ type Project = {
   id: number; title: string; type: string; area: string;
   duration: string; style: string; year: string;
   cover: string; gallery: string[];
+  price?: string;
 };
 
 const PROJECTS: Project[] = [
   {
     id: 1, title: 'Апартаменти «Марина»', type: 'Ремонт під ключ',
     area: '120 м²', duration: '4 місяці', style: 'Сучасний мінімалізм', year: '2024',
+    price: 'від 540 000 ₴',
     cover: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80',
@@ -231,6 +241,7 @@ const PROJECTS: Project[] = [
   {
     id: 2, title: 'Вілла «Монако»', type: 'Будівництво',
     area: '320 м²', duration: '14 місяців', style: 'Класичний стиль', year: '2024',
+    price: 'від 2 560 000 ₴',
     cover: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80',
@@ -243,6 +254,7 @@ const PROJECTS: Project[] = [
   {
     id: 3, title: 'Пентхаус «Небо»', type: 'Дизайн + Ремонт',
     area: '200 м²', duration: '6 місяців', style: 'Contemporary', year: '2023',
+    price: 'від 1 600 000 ₴',
     cover: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&q=80',
@@ -255,6 +267,7 @@ const PROJECTS: Project[] = [
   {
     id: 4, title: 'Резиденція «Ліс»', type: 'Будівництво',
     area: '450 м²', duration: '18 місяців', style: 'Природні матеріали', year: '2023',
+    price: 'від 4 050 000 ₴',
     cover: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=900&q=80',
@@ -267,6 +280,7 @@ const PROJECTS: Project[] = [
   {
     id: 5, title: 'Студія «Урбан»', type: 'Дизайн інтер\'єру',
     area: '65 м²', duration: '2 місяці', style: 'Лофт', year: '2024',
+    price: 'від 292 500 ₴',
     cover: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1560448204-61dc36dc98c8?w=900&q=80',
@@ -279,6 +293,7 @@ const PROJECTS: Project[] = [
   {
     id: 6, title: 'ЖК «Преміум»', type: 'Ремонт під ключ',
     area: '90 м²', duration: '3 місяці', style: 'Скандинавський', year: '2024',
+    price: 'від 720 000 ₴',
     cover: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=900&q=80',
@@ -291,6 +306,7 @@ const PROJECTS: Project[] = [
   {
     id: 7, title: 'Офіс «Атріум»', type: 'Комерційна нерухомість',
     area: '240 м²', duration: '5 місяців', style: 'Бізнес-преміум', year: '2023',
+    price: 'від 1 920 000 ₴',
     cover: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&q=80',
@@ -303,6 +319,7 @@ const PROJECTS: Project[] = [
   {
     id: 8, title: 'Таунхаус «Садовий»', type: 'Ремонт під ключ',
     area: '180 м²', duration: '7 місяців', style: 'Еклектика', year: '2023',
+    price: 'від 1 440 000 ₴',
     cover: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900&q=80',
@@ -315,6 +332,7 @@ const PROJECTS: Project[] = [
   {
     id: 9, title: 'Котедж «Берег»', type: 'Будівництво',
     area: '380 м²', duration: '16 місяців', style: 'Середземноморський', year: '2022',
+    price: 'від 3 040 000 ₴',
     cover: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80',
     gallery: [
       'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80',
@@ -328,7 +346,7 @@ const PROJECTS: Project[] = [
 
 const WHY_CARDS = [
   { Icon: Award,      num: '01', title: '17 РОКІВ ДОСВІДУ',      desc: 'Команда перевірених майстрів з сотнями реалізованих проєктів по всій Україні.' },
-  { Icon: Shield,     num: '02', title: 'ГАРАНТІЯ ЯКОСТІ',       desc: '100% відповідальність за результат, підтверджена офіційним договором.' },
+  { Icon: Shield,     num: '02', title: 'ГАРАНТІЯ ЯКОСТІ',       desc: 'Якщо вам не сподобається якість — ми переробимо за власний кошт. Письмова гарантія на приховані роботи 5 років.' },
   { Icon: Clock,      num: '03', title: 'ТОЧНІ ТЕРМІНИ',         desc: 'Фіксована ціна та чіткий графік — кожен день прострочки за наш рахунок.' },
   { Icon: Box,        num: '04', title: 'ВЛАСНЕ ВИРОБНИЦТВО',    desc: 'Меблі та оздоблення з власного цеху — без посередників, вища якість, нижча ціна.' },
   { Icon: Eye,        num: '05', title: 'АВТОРСЬКИЙ НАГЛЯД',     desc: 'Архітектор присутній на майданчику протягом усього будівництва.' },
@@ -1048,6 +1066,8 @@ export default function LandingPage() {
       <ScrollProgress />
       <MouseFollower />
       <SectionNav />
+      <ScrollToTop />
+      <FloatingSocial />
 
       <main>
         {/* ── HERO ───────────────────────────────────── */}

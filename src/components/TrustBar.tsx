@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const LOGOS = [
@@ -16,6 +17,9 @@ const LOGOS = [
 ];
 
 export default function TrustBar() {
+  const [showAll, setShowAll] = useState(false);
+  const visibleLogos = showAll ? LOGOS : LOGOS.slice(0, 5);
+
   return (
     <div className="relative py-12 border-y border-white/[0.06] overflow-hidden">
       <div className="relative z-10 mb-6 text-center">
@@ -26,14 +30,14 @@ export default function TrustBar() {
       <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <motion.div
           className="flex shrink-0 gap-16 items-center"
-          animate={{ x: ['0%', '-50%'] }}
+          animate={showAll ? { x: ['0%', '-50%'] } : { x: 0 }}
           transition={{
             duration: 30,
-            repeat: Infinity,
+            repeat: showAll ? Infinity : 0,
             ease: 'linear',
           }}
         >
-          {[...LOGOS, ...LOGOS].map((logo, i) => (
+          {(showAll ? [...LOGOS, ...LOGOS] : visibleLogos).map((logo, i) => (
             <div
               key={i}
               className="flex items-center justify-center h-16 px-6"
@@ -51,13 +55,15 @@ export default function TrustBar() {
           ))}
         </motion.div>
       </div>
-      {/* Gold line glow under */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[1px] w-1/2 opacity-30"
-        style={{
-          background: 'linear-gradient(90deg, transparent, #C9A84C, transparent)',
-        }}
-      />
+      {/* Show all / hide button */}
+      <div className="relative z-10 text-center mt-6">
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="text-white/20 hover:text-[#C9A84C] transition-colors font-heading text-[9px] uppercase tracking-[0.3em] font-black"
+        >
+          {showAll ? 'ЗГОРНУТИ' : `ДИВИТИСЬ ВСІХ (${LOGOS.length})`}
+        </button>
+      </div>
     </div>
   );
 }
