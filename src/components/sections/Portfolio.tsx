@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { THEME } from '@/lib/constants';
@@ -8,10 +10,15 @@ import { PROJECTS } from '@/data/projects';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 /* ─── Portfolio Item ───────────────────────────────────── */
-function PortfolioItem({ img, title, type, delay, onClick }: {
-  img: string; title: string; type: string; delay: number; onClick: () => void;
+function PortfolioItem({ img, title, type, delay, projectId }: {
+  img: string; title: string; type: string; delay: number; projectId: number;
 }) {
   const { ref, inView } = useScrollAnimation();
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/proekty/${projectId}`);
+  };
 
   return (
     <motion.div
@@ -20,7 +27,7 @@ function PortfolioItem({ img, title, type, delay, onClick }: {
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.8, delay }}
       className="relative group aspect-[4/3] overflow-hidden bg-[#0e0e0e] cursor-pointer"
-      onClick={onClick}
+      onClick={handleClick}
     >
       <motion.img
         src={img}
@@ -55,8 +62,8 @@ function PortfolioItem({ img, title, type, delay, onClick }: {
 
 /* ─── Main Portfolio Component ─────────────────────────── */
 interface PortfolioProps {
-  onSelectProject: (project: typeof PROJECTS[0]) => void;
-  onShowAll: () => void;
+  onSelectProject?: (project: typeof PROJECTS[0]) => void;
+  onShowAll?: () => void;
 }
 
 export default function Portfolio({ onSelectProject, onShowAll }: PortfolioProps) {
@@ -88,15 +95,16 @@ export default function Portfolio({ onSelectProject, onShowAll }: PortfolioProps
             НАШІ <span className="text-[#C9A84C]">РОБОТИ</span>
           </h2>
         </motion.div>
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          onClick={onShowAll}
-          className="text-[#C9A84C] font-heading font-black uppercase tracking-[0.2em] text-sm flex items-center gap-3 hover:text-[#E2C97E] transition-colors"
-        >
-          ВСІ ПРОЄКТИ <ArrowUpRight className="w-5 h-5" />
-        </motion.button>
+        <Link href="/proekty">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-[#C9A84C] font-heading font-black uppercase tracking-[0.2em] text-sm flex items-center gap-3 hover:text-[#E2C97E] transition-colors cursor-pointer"
+          >
+            ВСІ ПРОЄКТИ <ArrowUpRight className="w-5 h-5" />
+          </motion.div>
+        </Link>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -108,7 +116,7 @@ export default function Portfolio({ onSelectProject, onShowAll }: PortfolioProps
               title={proj.title}
               type={proj.type}
               delay={i * 0.05}
-              onClick={() => onSelectProject(proj)}
+              projectId={proj.id}
             />
           ))}
         </div>

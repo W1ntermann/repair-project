@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { THEME, ANIMATION } from '@/lib/constants';
 import { SERVICES } from '@/data/services';
@@ -14,19 +15,28 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Sofa,
 };
 
+const SERVICE_LINKS: Record<string, string> = {
+  '01': '/uslugi/remont',
+  '02': '/uslugi/dizajn',
+  '03': '/uslugi/remont',
+  '04': '/uslugi/mebli',
+};
+
 /* ─── Service Card ─────────────────────────────────────── */
 function ServiceCard({ num, title, desc, icon, delay }: { num: string; title: string; desc: string; icon: string; delay: number }) {
   const { ref, inView } = useScrollAnimation();
   const IconComponent = ICON_MAP[icon] || Wrench;
+  const href = SERVICE_LINKS[num] || '#';
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-      className="p-10 lg:p-12 group cursor-pointer hover:bg-white/[0.03] transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-full border border-transparent hover:border-white/[0.08]"
-    >
+    <Link href={href} className="block">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 30 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay }}
+        className="p-10 lg:p-12 group cursor-pointer hover:bg-white/[0.03] transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-full border border-transparent hover:border-white/[0.08]"
+      >
       <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/0 group-hover:from-[#C9A84C]/5 to-transparent transition-all duration-700" />
       <div>
         <div className="flex items-start justify-between mb-6">
@@ -47,7 +57,8 @@ function ServiceCard({ num, title, desc, icon, delay }: { num: string; title: st
         <div className="h-[2px] flex-1" style={{ background: THEME.GOLD_GRAD }} />
         <span className="text-[#C9A84C] text-xs font-sans uppercase tracking-wider">Детальніше</span>
       </div>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 }
 
