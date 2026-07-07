@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowDown, Play, Phone, ArrowUpRight, Sparkles, Shield, Clock,
@@ -58,9 +59,19 @@ export default function Hero({ onOpenModal, onScrollTo }: HeroProps) {
     <section ref={heroRef} id="головна" className="relative h-[100dvh] min-h-[800px] flex items-center overflow-hidden">
       {/* Background */}
       <motion.div
-        className="absolute inset-0 z-0 bg-cover bg-center scale-110"
-        style={{ backgroundImage: "url('/for-hero.jpg')", y: bgY }}
-      />
+        className="absolute inset-0 z-0 scale-110"
+        style={{ y: bgY }}
+      >
+        <Image
+          src="/for-hero.jpg"
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </motion.div>
       <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0e0e0e] via-[#0e0e0e]/80 to-transparent" />
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0e0e0e]/60 via-transparent to-transparent" />
       <GlowOrb x="68%" y="18%" size="600px" color={THEME.GOLD} />

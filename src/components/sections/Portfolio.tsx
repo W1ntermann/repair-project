@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
@@ -29,12 +30,12 @@ function PortfolioItem({ img, title, type, delay, projectId }: {
       className="relative group aspect-[4/3] overflow-hidden bg-[#0e0e0e] cursor-pointer"
       onClick={handleClick}
     >
-      <motion.img
+      <Image
         src={img}
         alt={title}
-        className="w-full h-full object-cover opacity-60"
-        whileHover={{ scale: 1.08 }}
-        transition={{ duration: 0.9, ease: THEME.EASE }}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="object-cover opacity-60 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-transparent to-transparent opacity-80" />
       <motion.div
@@ -70,7 +71,7 @@ export default function Portfolio() {
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=70')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=50')",
           opacity: 0.08,
         }}
       />

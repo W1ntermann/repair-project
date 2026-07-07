@@ -1,5 +1,20 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Inter, Lato } from 'next/font/google';
 import './globals.css';
+
+const inter = Inter({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const lato = Lato({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '700', '900'],
+  variable: '--font-lato',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Ремонт під ключ в Одесі | Pro Repair – 17 років досвіду та гарантія якості',
@@ -23,13 +38,19 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: '#0e0e0e',
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="uk">
+    <html lang="uk" className={`${inter.variable} ${lato.variable}`}>
       <body>
         {children}
       </body>
