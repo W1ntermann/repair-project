@@ -131,7 +131,7 @@ export const HERO_STATS = [
 
 export const NAV_ITEMS = [
   { label: 'Послуги', id: 'послуги' },
-  { label: 'Проєкти', id: 'проєкти' },
+  { label: 'Проєкти', id: 'портфоліо' },
   { label: 'Прайс', id: 'прайс' },
   { label: 'FAQ', id: 'faq' },
   { label: 'Контакти', id: 'контакти' },
@@ -141,7 +141,7 @@ export const FOOTER_LINKS = {
   navigation: [
     { label: 'Про нас', id: 'про-нас' },
     { label: 'Послуги', id: 'послуги' },
-    { label: 'Проєкти', id: 'проєкти' },
+    { label: 'Проєкти', id: 'портфоліо' },
     { label: 'Прайс', id: 'прайс' },
     { label: 'FAQ', id: 'faq' },
   ],

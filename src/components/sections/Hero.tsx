@@ -33,7 +33,7 @@ function HeroStatCard({ n, suf, label, delay = 0 }: { n: number; suf: string; la
       className="backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] px-8 py-5 flex items-center gap-5 w-64"
       style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)' }}
     >
-      <span className="text-4xl font-heading font-black text-[#C9A84C]">
+      <span ref={ref} className="text-4xl font-heading font-black text-[#C9A84C]">
         {val}{suf}
       </span>
       <span className="text-white/50 font-heading text-[11px] uppercase tracking-[0.25em] font-black">{label}</span>

@@ -21,12 +21,9 @@ import MouseFollower from '@/components/MouseFollower';
 import SectionNav from '@/components/SectionNav';
 import ScrollToTop from '@/components/ScrollToTop';
 import FloatingSocial from '@/components/FloatingSocial';
-import { type Project } from '@/data/projects';
 
 export default function LandingPage() {
   const [modal, setModal] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [showAllProjects, setShowAllProjects] = useState(false);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -35,16 +32,6 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#f0f0f0] font-sans selection:bg-[#C9A84C] selection:text-[#0e0e0e] overflow-x-hidden">
       <ContactModal open={modal} onClose={() => setModal(false)} />
-
-      {/* Overlays */}
-      <div>
-        {showAllProjects && !selectedProject && (
-          <div>All Projects overlay - to be implemented</div>
-        )}
-        {selectedProject && (
-          <div>Project Detail overlay - to be implemented</div>
-        )}
-      </div>
 
       <Header onOpenModal={() => setModal(true)} onScrollTo={scrollTo} />
       <ScrollProgress />
@@ -57,7 +44,7 @@ export default function LandingPage() {
         <Hero onOpenModal={() => setModal(true)} onScrollTo={scrollTo} />
         <Services />
         <About onOpenModal={() => setModal(true)} onScrollTo={scrollTo} />
-        <Portfolio onSelectProject={setSelectedProject} onShowAll={() => setShowAllProjects(true)} />
+        <Portfolio />
         <TrustBar />
         <WhyUs />
         <Testimonials />

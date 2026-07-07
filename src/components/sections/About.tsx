@@ -9,8 +9,8 @@ import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { useAnimatedNumber } from '@/hooks/use-animated-number';
 
 /* ─── Stat Card ────────────────────────────────────────── */
-function StatCard({ n, suf, label, type, offset = 0, delay = 0 }: {
-  n: number; suf: string; label: string; type: 'glass' | 'gold'; offset?: number; delay: number;
+function StatCard({ n, suf, label, type, delay = 0 }: {
+  n: number; suf: string; label: string; type: 'glass' | 'gold'; delay: number;
 }) {
   const { ref: numRef, val } = useAnimatedNumber({ target: n, suffix: suf });
 
@@ -25,7 +25,6 @@ function StatCard({ n, suf, label, type, offset = 0, delay = 0 }: {
           ? 'text-[#0e0e0e]'
           : 'backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] text-white hover:border-[#C9A84C]/40'}`}
       style={{
-        transform: offset ? `translateY(${offset}px)` : undefined,
         background: type === 'gold' ? THEME.GOLD_GRAD : undefined,
         boxShadow: type === 'gold' ? '0 8px 40px rgba(201,168,76,0.3)' : undefined,
       }}
@@ -116,15 +115,18 @@ export default function About({ onOpenModal, onScrollTo }: AboutProps) {
           </div>
 
           <div className="grid grid-cols-2 gap-6 mt-10 lg:mt-0">
-            {STATS.map((stat, i) => (
-              <StatCard
-                key={stat.label}
-                {...stat}
-                type={i === 2 ? 'gold' : 'glass'}
-                delay={i * 0.1}
-                offset={i % 2 === 0 ? 0 : i === 1 ? 32 : -32}
-              />
-            ))}
+            {STATS.map((stat, i) => {
+              const offset = i % 2 === 0 ? 0 : i === 1 ? 32 : -32;
+              return (
+                <div key={stat.label} style={{ transform: `translateY(${offset}px)` }}>
+                  <StatCard
+                    {...stat}
+                    type={i === 2 ? 'gold' : 'glass'}
+                    delay={i * 0.1}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

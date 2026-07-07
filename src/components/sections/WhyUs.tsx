@@ -79,7 +79,7 @@ export default function WhyUs() {
           </h2>
         </motion.div>
 
-        <div ref={ref} className="relative">
+        <div className="relative">
           {/* Cards track */}
           <div className="relative overflow-hidden" style={{ perspective: '1200px' }}>
             <div className="relative h-[340px] md:h-[280px]">

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { THEME, ANIMATION } from '@/lib/constants';
 import { PROJECTS } from '@/data/projects';
-import { ArrowLeft, Calendar, MapPin, Ruler, Phone, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Ruler, Phone, ArrowRight, X } from 'lucide-react';
 import Header from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
 import ContactModal from '@/components/sections/ContactModal';
@@ -317,8 +317,9 @@ export default function ProjectDetailPage() {
           <button
             onClick={() => setSelectedImage(null)}
             className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors"
+            aria-label="Закрити"
           >
-            <ArrowLeft className="w-8 h-8" />
+            <X className="w-8 h-8" />
           </button>
           <img
             src={selectedImage}

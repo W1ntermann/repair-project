@@ -10,7 +10,7 @@ export default function CTASection({ onOpenModal }: { onOpenModal: () => void })
   const { ref, inView } = useScrollAnimation();
 
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section id="контакти" className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img

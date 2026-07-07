@@ -61,12 +61,7 @@ function PortfolioItem({ img, title, type, delay, projectId }: {
 }
 
 /* ─── Main Portfolio Component ─────────────────────────── */
-interface PortfolioProps {
-  onSelectProject?: (project: typeof PROJECTS[0]) => void;
-  onShowAll?: () => void;
-}
-
-export default function Portfolio({ onSelectProject, onShowAll }: PortfolioProps) {
+export default function Portfolio() {
   const { ref, inView } = useScrollAnimation();
 
   return (

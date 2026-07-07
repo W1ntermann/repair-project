@@ -164,7 +164,7 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
                   </div>
                   <div>
                     <div className="text-xs text-white/30 uppercase tracking-wider mb-1">Адреса</div>
-                    <div className="text-sm font-sans">м. Одеса, вул. Архітектурна, 1</div>
+                    <div className="text-sm font-sans">м. Одеса, вул. Дерибасівська, 1</div>
                   </div>
                 </div>
               </div>
